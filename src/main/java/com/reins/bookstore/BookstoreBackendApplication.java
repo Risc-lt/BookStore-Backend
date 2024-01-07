@@ -1,4 +1,4 @@
-package com.reins.bookstorebackend;
+package com.reins.bookstore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

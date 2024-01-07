@@ -1,2 +1,9 @@
-package com.reins.bookstore.models;public class LoginRequest {
+package com.reins.bookstore.models;
+
+import lombok.Data;
+
+@Data
+public class LoginRequest {
+    String username;
+    String password;
 }

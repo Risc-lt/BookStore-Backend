@@ -1,2 +1,10 @@
-package com.reins.bookstore.dao;public class UserDAO {
+package com.reins.bookstore.dao;
+
+import com.reins.bookstore.entity.User;
+import com.reins.bookstore.entity.UserAuth;
+
+public interface UserDAO {
+    UserAuth getAuth(String username);
+
+    User getById(Long id);
 }
