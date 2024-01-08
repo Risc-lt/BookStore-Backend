@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookServiceImpl implements BookService {
     @Autowired
@@ -22,5 +24,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book getBookById(Long id) {
         return bookDAO.getById(id);
+    }
+
+    @Override
+    public List<Book> getTop10BestsellingBooks() {
+        return bookDAO.getTop10BestsellingBooks();
     }
 }

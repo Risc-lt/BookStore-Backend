@@ -34,4 +34,9 @@ public class BookController {
         }
         return ResponseEntity.ok(book);
     }
+
+    @GetMapping("/api/books/rank")
+    ResponseEntity<List<Book>> getTop10BestsellingBooks() {
+        return ResponseEntity.ok(bookService.getTop10BestsellingBooks());
+    }
 }

@@ -12,4 +12,6 @@ public interface BookDAO {
     Book getById(Long id);
 
     void updateSales(List<CartItem> cartItems);
+
+    List<Book> getTop10BestsellingBooks();
 }

@@ -44,4 +44,9 @@ public class BookDAOImpl implements BookDAO {
             bookRepository.save(book);
         }
     }
+
+    @Override
+    public List<Book> getTop10BestsellingBooks() {
+        return bookRepository.findTop10ByOrderBySalesDesc();
+    }
 }
