@@ -14,6 +14,8 @@ public class User {
 
     String nickname;
 
+    Long balance;
+
     public User(Long id) {
         this.id = id;
     }

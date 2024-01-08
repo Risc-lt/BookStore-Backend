@@ -1,6 +1,7 @@
 package com.reins.bookstore.dao.impl;
 
 import com.reins.bookstore.dao.CartDAO;
+import com.reins.bookstore.entity.Book;
 import com.reins.bookstore.entity.CartItem;
 import com.reins.bookstore.entity.User;
 import com.reins.bookstore.repository.CartRepository;
@@ -17,5 +18,21 @@ public class CartDAOImpl implements CartDAO {
     @Override
     public List<CartItem> getUserItems(Long userId) {
         return cartRepository.findAllByUserOrderByIdDesc(new User(userId));
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        cartRepository.deleteById(id);
+    }
+
+    @Override
+    public void addOne(Long userId, Long bookId) {
+        CartItem item = new CartItem(null, new User(userId), new Book(bookId), 1);
+        cartRepository.save(item);
+    }
+
+    @Override
+    public boolean exists(Long userId, Long bookId) {
+        return cartRepository.existsByUserAndBook(new User(userId), new Book(bookId));
     }
 }

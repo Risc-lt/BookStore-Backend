@@ -2,9 +2,11 @@ package com.reins.bookstore.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,4 +17,8 @@ public class Book {
     String description;
     Integer price;
     String cover;
+
+    public Book(Long id) {
+        this.id = id;
+    }
 }

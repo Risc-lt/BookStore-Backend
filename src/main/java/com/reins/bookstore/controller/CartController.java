@@ -1,13 +1,12 @@
 package com.reins.bookstore.controller;
 
 import com.reins.bookstore.entity.CartItem;
+import com.reins.bookstore.models.ApiResponseBase;
 import com.reins.bookstore.service.CartService;
 import com.reins.bookstore.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +20,15 @@ public class CartController {
     public ResponseEntity<List<CartItem>> getUserItems() {
         Long userId = SessionUtils.getUserId();
         return ResponseEntity.ok(cartService.getUserCartItems(userId));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponseBase> deleteItem(@PathVariable Long id) {
+        return ResponseEntity.ok(cartService.deleteItem(id));
+    }
+
+    @PutMapping
+    public ResponseEntity<ApiResponseBase> addCartItem(@RequestParam Long bookId) {
+        return ResponseEntity.ok(cartService.addItem(SessionUtils.getUserId(), bookId));
     }
 }
