@@ -24,7 +24,12 @@ public class CartController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponseBase> deleteItem(@PathVariable Long id) {
-        return ResponseEntity.ok(cartService.deleteItem(id));
+        return ResponseEntity.ok(cartService.deleteItem(id, SessionUtils.getUserId()));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponseBase> updateItem(@PathVariable Long id, @RequestParam Integer number) {
+        return ResponseEntity.ok(cartService.updateItem(id, number, SessionUtils.getUserId()));
     }
 
     @PutMapping

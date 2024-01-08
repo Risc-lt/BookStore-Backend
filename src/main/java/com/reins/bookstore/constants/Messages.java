@@ -7,4 +7,7 @@ public class Messages {
     public static String ADD_CART_SUCCEED = "添加成功！";
     public static String DELETE_SUCCEED = "删除成功！";
     public static String LOGOUT_SUCCEED = "登出成功！";
+    public static String MODIFY_SUCCEED = "更改成功！";
+    public static String BALANCE_NOT_ENOUGH = "下单失败！余额不足。";
+    public static String PLACE_ORDER_SUCCEED = "下单成功！";
 }

@@ -6,24 +6,29 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class CartItem {
+@AllArgsConstructor
+@Table(name = "order_tbl")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
+    String receiver;
+
+    String address;
+
+    String tel;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<OrderItem> items;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
     @JoinColumn(name = "userId", referencedColumnName = "id")
     User user;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "bookId", referencedColumnName = "id")
-    Book book;
-
-    Integer number;
 }

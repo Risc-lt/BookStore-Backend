@@ -25,4 +25,22 @@ public class UserDAOImpl implements UserDAO {
     public User getById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public Long getUserBalance(Long id) {
+        User user = getById(id);
+        if (user == null) {
+            return null;
+        }
+        return user.getBalance();
+    }
+
+    @Override
+    public void updateUserBalance(Long id, Long balance) {
+        User user = getById(id);
+        if (user != null) {
+            user.setBalance(balance);
+            userRepository.save(user);
+        }
+    }
 }

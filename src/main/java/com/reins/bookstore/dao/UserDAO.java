@@ -7,4 +7,8 @@ public interface UserDAO {
     UserAuth getAuth(String username);
 
     User getById(Long id);
+
+    Long getUserBalance(Long id);
+
+    void updateUserBalance(Long id, Long balance);
 }

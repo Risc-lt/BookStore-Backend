@@ -6,24 +6,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class CartItem {
+@AllArgsConstructor
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonIgnore
-    @JoinColumn(name = "userId", referencedColumnName = "id")
-    User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bookId", referencedColumnName = "id")
     Book book;
 
     Integer number;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "orderId", referencedColumnName = "id")
+    Order order;
 }

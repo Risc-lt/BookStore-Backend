@@ -26,6 +26,11 @@ public class CartDAOImpl implements CartDAO {
     }
 
     @Override
+    public CartItem getById(Long id) {
+        return cartRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public void addOne(Long userId, Long bookId) {
         CartItem item = new CartItem(null, new User(userId), new Book(bookId), 1);
         cartRepository.save(item);
@@ -34,5 +39,16 @@ public class CartDAOImpl implements CartDAO {
     @Override
     public boolean exists(Long userId, Long bookId) {
         return cartRepository.existsByUserAndBook(new User(userId), new Book(bookId));
+    }
+
+    @Override
+    public void updateItem(CartItem item, Integer number) {
+        item.setNumber(number);
+        cartRepository.save(item);
+    }
+
+    @Override
+    public void removeAll(List<CartItem> cartItems) {
+        cartRepository.deleteAll(cartItems);
     }
 }

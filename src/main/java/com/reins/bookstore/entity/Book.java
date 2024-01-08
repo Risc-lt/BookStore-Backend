@@ -17,6 +17,7 @@ public class Book {
     String description;
     Integer price;
     String cover;
+    Integer sales;
 
     public Book(Long id) {
         this.id = id;
