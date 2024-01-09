@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class OrderDAOImpl implements OrderDAO {
                 orderInfo.getReceiver(),
                 orderInfo.getAddress(),
                 orderInfo.getTel(),
+                new Timestamp(System.currentTimeMillis()),
                 new ArrayList<>(),
                 new User(userId)
         );
@@ -40,6 +42,6 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public List<Order> getByUserId(Long userId) {
-        return orderRepository.findAllByUser(new User(userId));
+        return orderRepository.findAllByUserOrderByCreatedAtDesc(new User(userId));
     }
 }
