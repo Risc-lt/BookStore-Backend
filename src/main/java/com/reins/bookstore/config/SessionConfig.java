@@ -17,6 +17,7 @@ public class SessionConfig implements WebMvcConfigurer {
         registry.addInterceptor(sessionInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/api/login")
+                .excludePathPatterns("/swagger-ui/**")
                 .excludePathPatterns("/**/*.js")
                 .excludePathPatterns("/**/*.css");
     }
