@@ -34,29 +34,36 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     CartDAO cartDAO;
 
-    private Long computeTotalPrice(OrderInfo orderInfo) {
-        long totalPrice = 0L;
+    private List<CartItem> getCartItems(List<Long> ids) {
         List<CartItem> cartItems = new ArrayList<>();
-        for (Long cartItemId : orderInfo.getItemIds()) {
+        for (Long cartItemId : ids) {
             CartItem cartItem = cartDAO.getById(cartItemId);
             if (cartItem == null) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
             }
+            cartItems.add(cartItem);
+        }
+        return cartItems;
+    }
+
+    private Long computeTotalPrice(List<CartItem> cartItems) {
+        long totalPrice = 0L;
+        for (CartItem cartItem : cartItems) {
             Book book = cartItem.getBook();
             if (book == null) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
             }
-            totalPrice += (long) cartItem.getNumber() * book.getPrice();
-            cartItems.add(cartItem);
+            totalPrice += (long) book.getPrice() * cartItem.getNumber();
         }
-        orderInfo.setItems(cartItems);
         return totalPrice;
     }
 
     @Override
     @Transactional
     public ApiResponseBase placeOrder(Long userId, OrderInfo orderInfo) {
-        long totalPrice = computeTotalPrice(orderInfo);
+        List<CartItem> cartItems = getCartItems(orderInfo.getItemIds());
+
+        long totalPrice = computeTotalPrice(cartItems);
         long userBalance = userDAO.getUserBalance(userId);
 
         if (totalPrice > userBalance) {
@@ -65,13 +72,13 @@ public class OrderServiceImpl implements OrderService {
 
         long rest = userBalance - totalPrice;
         userDAO.updateUserBalance(userId, rest);
-        orderDAO.saveOrder(userId, orderInfo);
+        orderDAO.saveOrder(userId, orderInfo, cartItems);
 
         // update book sales
-        bookDAO.updateSales(orderInfo.getItems());
+        bookDAO.updateSales(cartItems);
 
         // remove cart items
-        cartDAO.removeAll(orderInfo.getItems());
+        cartDAO.removeAll(cartItems);
         return ApiResponseBase.succeed(Messages.PLACE_ORDER_SUCCEED);
     }
 

@@ -1,4 +1,5 @@
-use bookstore;
+use
+bookstore;
 
 insert into book(author, cover, description, price, title, sales)
 values ('[英] 乔治·奥威尔',
