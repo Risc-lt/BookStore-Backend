@@ -10,4 +10,8 @@ public class Messages {
     public static String MODIFY_SUCCEED = "更改成功！";
     public static String BALANCE_NOT_ENOUGH = "下单失败！余额不足。";
     public static String PLACE_ORDER_SUCCEED = "下单成功！";
+    public static String ADD_COMMENT_SUCCEED = "添加评论成功！";
+    public static String REPLY_COMMENT_SUCCEED = "回复评论成功！";
+    public static String LIKE_COMMENT_SUCCEED = "点赞成功！";
+    public static String UNLIKE_COMMENT_SUCCEED = "取消点赞成功！";
 }
