@@ -1,5 +1,114 @@
-use
-    bookstore;
+create database bookstore;
+use bookstore;
+
+SET NAMES 'utf8';
+SET CHARACTER SET utf8;
+
+create table book
+(
+    id          bigint auto_increment
+        primary key,
+    author      varchar(255) null,
+    cover       varchar(255) null,
+    description text         null,
+    price       int          null,
+    title       varchar(255) null,
+    sales       int          null
+);
+
+create table user
+(
+    id       bigint auto_increment
+        primary key,
+    nickname varchar(255) null,
+    balance  bigint       null
+);
+
+create table user_auth
+(
+    id       bigint auto_increment
+        primary key,
+    identity int          null,
+    password varchar(255) null,
+    username varchar(255) null,
+    user_id  bigint       null,
+    constraint
+        unique (username),
+    constraint
+        unique (user_id),
+    constraint
+        foreign key (user_id) references user (id)
+);
+
+-- auto-generated definition
+create table cart_item
+(
+    id      bigint auto_increment
+        primary key,
+    number  int    null,
+    book_id bigint null,
+    user_id bigint null,
+    constraint
+        foreign key (book_id) references book (id),
+    constraint
+        foreign key (user_id) references user (id)
+);
+
+create table order_tbl
+(
+    id         bigint auto_increment
+        primary key,
+    address    varchar(255) null,
+    receiver   varchar(255) null,
+    tel        varchar(255) null,
+    user_id    bigint       null,
+    created_at datetime(6)  null,
+    constraint
+        foreign key (user_id) references user (id)
+);
+
+create table order_item
+(
+    id       bigint auto_increment
+        primary key,
+    number   int    null,
+    book_id  bigint null,
+    order_id bigint null,
+    constraint
+        foreign key (book_id) references book (id),
+    constraint
+        foreign key (order_id) references order_tbl (id)
+);
+
+create table comment
+(
+    id         bigint auto_increment
+        primary key,
+    content    varchar(512) null,
+    book_id    bigint       null,
+    reply_id   bigint       null,
+    created_at datetime(6)  null,
+    user_id    bigint       null,
+    like_cnt   int          null,
+    constraint
+        foreign key (user_id) references user (id),
+    constraint
+        foreign key (reply_id) references comment (id),
+    constraint
+        foreign key (book_id) references book (id)
+);
+
+create table like_record
+(
+    id         bigint auto_increment
+        primary key,
+    comment_id bigint null,
+    user_id    bigint null,
+    constraint
+        foreign key (comment_id) references comment (id),
+    constraint
+        foreign key (user_id) references user (id)
+);
 
 insert into book(author, cover, description, price, title, sales)
 values ('[英] 乔治·奥威尔',
@@ -78,3 +187,6 @@ values ('[英] 乔治·奥威尔',
        ('[美] Bruce Eckel', 'https://img3m0.ddimg.cn/4/24/9317290-1_u_6.jpg',
         'Java学习经典,殿堂级著作！赢得了全球程序员的广泛赞誉。',
         9940, 'Java编程思想（第4版）', 0);
+
+insert into user(nickname, balance) value ('admin', 100000000);
+insert into user_auth(identity, password, username, user_id) value (1, 'admin', 'admin', 1);
