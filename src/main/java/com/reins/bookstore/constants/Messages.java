@@ -14,4 +14,5 @@ public class Messages {
     public static String REPLY_COMMENT_SUCCEED = "回复评论成功！";
     public static String LIKE_COMMENT_SUCCEED = "点赞成功！";
     public static String UNLIKE_COMMENT_SUCCEED = "取消点赞成功！";
+    public static String PARAMS_SHOULD_NOT_BE_EMPTY = "请求参数不得为空！";
 }

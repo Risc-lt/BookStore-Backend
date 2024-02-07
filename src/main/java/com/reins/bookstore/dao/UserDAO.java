@@ -11,4 +11,6 @@ public interface UserDAO {
     Long getUserBalance(Long id);
 
     void updateUserBalance(Long id, Long balance);
+
+    void updateUserPassword(Long id, String password);
 }

@@ -43,4 +43,13 @@ public class UserDAOImpl implements UserDAO {
             userRepository.save(user);
         }
     }
+
+    @Override
+    public void updateUserPassword(Long id, String password) {
+        UserAuth userAuth = userAuthRepository.findById(id).orElse(null);
+        if (userAuth != null) {
+            userAuth.setPassword(password);
+            userAuthRepository.save(userAuth);
+        }
+    }
 }
