@@ -29,7 +29,7 @@ public class CommentController {
     }
 
     @PutMapping("/api/comment/{id}/unlike")
-    @Operation(summary = "取消评论")
+    @Operation(summary = "取消点赞评论")
     ResponseEntity<ApiResponseBase> unlikeComment(@PathVariable Long id) {
         return ResponseEntity.ok(commentService.unlikeComment(id, SessionUtils.getUserId()));
     }
