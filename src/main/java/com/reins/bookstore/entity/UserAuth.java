@@ -16,7 +16,8 @@ public class UserAuth {
     String password;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @MapsId
+    @JoinColumn(name = "id", referencedColumnName = "id")
     User user;
 
     Integer identity;

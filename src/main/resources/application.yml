@@ -28,3 +28,6 @@ spring:
 springdoc:
   api-docs:
     path: /api-docs
+
+upload:
+  directory: ./upload

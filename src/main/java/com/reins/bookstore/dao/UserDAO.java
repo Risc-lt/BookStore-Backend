@@ -13,4 +13,8 @@ public interface UserDAO {
     void updateUserBalance(Long id, Long balance);
 
     void updateUserPassword(Long id, String password);
+
+    void updateUserIntroduction(Long id, String introduction);
+
+    String updateUserAvatar(Long id, String avatar);
 }

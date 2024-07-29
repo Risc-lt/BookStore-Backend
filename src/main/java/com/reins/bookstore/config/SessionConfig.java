@@ -19,6 +19,7 @@ public class SessionConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/api/login")
                 .excludePathPatterns("/swagger-ui/**")
                 .excludePathPatterns("/api-docs")
+                .excludePathPatterns("/api/user/avatars/*")
                 .excludePathPatterns("/**/*.js")
                 .excludePathPatterns("/**/*.css");
     }

@@ -1,7 +1,6 @@
 package com.reins.bookstore.models;
 
 import com.reins.bookstore.entity.Comment;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +13,7 @@ import java.sql.Timestamp;
 public class CommentDTO {
     Long id;
     String username;
+    String avatar;
     String content;
     String reply;
     Integer like;
@@ -25,6 +25,7 @@ public class CommentDTO {
         return new CommentDTO(
                 comment.getId(),
                 comment.getUser().getNickname(),
+                comment.getUser().getAvatar(),
                 comment.getContent(),
                 (reply != null) ? reply.getUser().getNickname() : null,
                 comment.getLike(),

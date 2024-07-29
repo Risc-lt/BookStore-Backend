@@ -1,9 +1,6 @@
 package com.reins.bookstore.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,7 +14,14 @@ public class User {
 
     String nickname;
 
+    String avatar;
+
+    String introduction;
+
     Long balance;
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user")
+    UserAuth userAuth;
 
     public User(Long id) {
         this.id = id;

@@ -15,4 +15,6 @@ public class Messages {
     public static String LIKE_COMMENT_SUCCEED = "点赞成功！";
     public static String UNLIKE_COMMENT_SUCCEED = "取消点赞成功！";
     public static String PARAMS_SHOULD_NOT_BE_EMPTY = "请求参数不得为空！";
+    public static String PARAMS_SHOULD_INVALID = "非法的请求参数！";
+    public static String UPLOAD_FAILED = "上传失败！";
 }

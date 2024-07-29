@@ -52,4 +52,25 @@ public class UserDAOImpl implements UserDAO {
             userAuthRepository.save(userAuth);
         }
     }
+
+    @Override
+    public void updateUserIntroduction(Long id, String introduction) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user != null) {
+            user.setIntroduction(introduction);
+            userRepository.save(user);
+        }
+    }
+
+    @Override
+    public String updateUserAvatar(Long id, String avatar) {
+        User user = userRepository.findById(id).orElse(null);
+        String oldAvatar = null;
+        if (user != null) {
+            oldAvatar = user.getAvatar();
+            user.setAvatar(avatar);
+            userRepository.save(user);
+        }
+        return oldAvatar;
+    }
 }

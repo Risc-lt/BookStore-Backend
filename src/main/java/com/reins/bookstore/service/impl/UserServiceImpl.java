@@ -25,4 +25,17 @@ public class UserServiceImpl implements UserService {
         userDAO.updateUserPassword(userId, password);
         return ApiResponseBase.succeed(Messages.MODIFY_SUCCEED);
     }
+
+    @Override
+    @Transactional
+    public ApiResponseBase changeMyIntroduction(Long userId, String introduction) {
+        userDAO.updateUserIntroduction(userId, introduction);
+        return ApiResponseBase.succeed(Messages.MODIFY_SUCCEED);
+    }
+
+    @Override
+    @Transactional
+    public String changeMyAvatar(Long userId, String avatarPath) {
+        return userDAO.updateUserAvatar(userId, avatarPath);
+    }
 }

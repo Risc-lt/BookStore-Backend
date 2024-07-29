@@ -189,4 +189,4 @@ values ('[英] 乔治·奥威尔',
         9940, 'Java编程思想（第4版）', 0);
 
 insert into user(nickname, balance) value ('admin', 100000000);
-insert into user_auth(identity, password, username, user_id) value (1, 'admin', 'admin', 1);
+insert into user_auth(id, identity, password, username) value (1, 1, 'admin', 'admin');
