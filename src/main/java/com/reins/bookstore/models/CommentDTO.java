@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class CommentDTO {
     Long id;
+    Long userId;
     String username;
     String avatar;
     String content;
@@ -24,6 +25,7 @@ public class CommentDTO {
         Comment reply = comment.getReply();
         return new CommentDTO(
                 comment.getId(),
+                comment.getUser().getId(),
                 comment.getUser().getNickname(),
                 comment.getUser().getAvatar(),
                 comment.getContent(),

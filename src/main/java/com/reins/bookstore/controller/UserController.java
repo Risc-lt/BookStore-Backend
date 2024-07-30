@@ -2,10 +2,7 @@ package com.reins.bookstore.controller;
 
 import com.reins.bookstore.constants.Messages;
 import com.reins.bookstore.entity.User;
-import com.reins.bookstore.models.ApiResponseBase;
-import com.reins.bookstore.models.ChangeIntroductionRequest;
-import com.reins.bookstore.models.ChangePasswordRequest;
-import com.reins.bookstore.models.UserDTO;
+import com.reins.bookstore.models.*;
 import com.reins.bookstore.service.UserService;
 import com.reins.bookstore.utils.SessionUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,6 +40,13 @@ public class UserController {
         Long userId = SessionUtils.getUserId();
         User user = userService.getUser(userId);
         return ResponseEntity.ok(UserDTO.fromEntity(user));
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "获取其他用户的信息")
+    ResponseEntity<PartialUserDTO> getOthers(@PathVariable(name = "id") Long userId) {
+        User user = userService.getUser(userId);
+        return ResponseEntity.ok(PartialUserDTO.fromEntity(user));
     }
 
     @PostMapping("/me/avatar")
