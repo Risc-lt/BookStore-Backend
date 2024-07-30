@@ -23,13 +23,20 @@ public class BookController {
 
     @GetMapping("/api/books")
     @Operation(summary = "搜索书籍")
-    ResponseEntity<PagedItems<Book>> searchBooks(@RequestParam String keyword,
+    ResponseEntity<PagedItems<Book>> searchBooks(@RequestParam String tag,
+                                                 @RequestParam String keyword,
                                                  @RequestParam Integer pageIndex,
                                                  @RequestParam Integer pageSize) {
         if (pageIndex == null || pageIndex < 0 || pageSize == null || pageSize < 0) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(bookService.searchBooks(keyword, pageIndex, pageSize));
+        return ResponseEntity.ok(bookService.searchBooks(tag, keyword, pageIndex, pageSize));
+    }
+
+    @GetMapping("/api/book/tags")
+    @Operation(summary = "获取所有书籍标签")
+    ResponseEntity<List<String>> getBookTags() {
+        return ResponseEntity.ok(bookService.getAllTags());
     }
 
     @GetMapping("/api/book/{id}")

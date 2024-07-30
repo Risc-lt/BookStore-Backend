@@ -190,3 +190,37 @@ values ('[英] 乔治·奥威尔',
 
 insert into user(nickname, balance) value ('admin', 100000000);
 insert into user_auth(id, identity, password, username) value (1, 1, 'admin', 'admin');
+
+insert into tag(name)
+values ('编程'),
+       ('漫画'),
+       ('小说'),
+       ('技术类'),
+       ('Golang'),
+       ('C++'),
+       ('Java');
+insert into book_tags(book_id, tags_id)
+values (1, 3),
+       (2, 1),
+       (2, 4),
+       (2, 6),
+       (3, 1),
+       (3, 4),
+       (3, 7),
+       (4, 1),
+       (4, 4),
+       (4, 7),
+       (5, 1),
+       (5, 4),
+       (5, 5),
+       (6, 1),
+       (6, 4),
+       (6, 5),
+       (7, 2),
+       (8, 2),
+       (9, 2),
+       (10, 2),
+       (11, 2),
+       (12, 1),
+       (12, 7),
+       (12, 4);

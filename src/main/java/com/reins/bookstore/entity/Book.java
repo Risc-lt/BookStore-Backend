@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -18,6 +20,9 @@ public class Book {
     Integer price;
     String cover;
     Integer sales;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    List<Tag> tags;
 
     public Book(Long id) {
         this.id = id;

@@ -5,6 +5,7 @@ import com.reins.bookstore.dao.BookDAO;
 import com.reins.bookstore.dao.CommentDAO;
 import com.reins.bookstore.entity.Book;
 import com.reins.bookstore.entity.Comment;
+import com.reins.bookstore.entity.Tag;
 import com.reins.bookstore.models.ApiResponseBase;
 import com.reins.bookstore.models.CommentDTO;
 import com.reins.bookstore.models.PagedItems;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -25,8 +27,13 @@ public class BookServiceImpl implements BookService {
     CommentDAO commentDAO;
 
     @Override
-    public PagedItems<Book> searchBooks(String keyword, Integer pageIndex, Integer pageSize) {
-        Page<Book> pagedBooks = bookDAO.searchBooksByKeyword(keyword, pageIndex, pageSize);
+    public PagedItems<Book> searchBooks(String tag, String keyword, Integer pageIndex, Integer pageSize) {
+        Page<Book> pagedBooks;
+        if (tag == null || tag.isEmpty()) {
+            pagedBooks = bookDAO.searchBooksByKeyword(keyword, pageIndex, pageSize);
+        } else {
+            pagedBooks = bookDAO.searchBooksByTagAndKeyword(tag, keyword, pageIndex, pageSize);
+        }
         return new PagedItems<>(pagedBooks.getTotalPages(), pagedBooks.getContent());
     }
 
@@ -38,6 +45,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> getTop10BestsellingBooks() {
         return bookDAO.getTop10BestsellingBooks();
+    }
+
+    @Override
+    public List<String> getAllTags() {
+        return bookDAO.getAllTags().stream().map(Tag::getName).collect(Collectors.toList());
     }
 
     @Override

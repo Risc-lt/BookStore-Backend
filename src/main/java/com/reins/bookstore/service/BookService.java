@@ -9,11 +9,13 @@ import java.util.List;
 
 
 public interface BookService {
-    PagedItems<Book> searchBooks(String keyword, Integer pageIndex, Integer pageSize);
+    PagedItems<Book> searchBooks(String tag, String keyword, Integer pageIndex, Integer pageSize);
 
     Book getBookById(Long id);
 
     List<Book> getTop10BestsellingBooks();
+
+    List<String> getAllTags();
 
     PagedItems<CommentDTO> getBookComments(Long bookId, Integer pageIndex, Integer pageSize, String sort, Long userId);
 

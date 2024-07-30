@@ -3,7 +3,9 @@ package com.reins.bookstore.dao.impl;
 import com.reins.bookstore.dao.BookDAO;
 import com.reins.bookstore.entity.Book;
 import com.reins.bookstore.entity.CartItem;
+import com.reins.bookstore.entity.Tag;
 import com.reins.bookstore.repository.BookRepository;
+import com.reins.bookstore.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,11 +22,22 @@ public class BookDAOImpl implements BookDAO {
     @Autowired
     BookRepository bookRepository;
 
+    @Autowired
+    TagRepository tagRepository;
+
     @Override
     public Page<Book> searchBooksByKeyword(String keyword, Integer pageIndex, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageIndex, pageSize);
         String wrapped = "%" + keyword + "%";
         return bookRepository.findAllByAuthorLikeOrTitleLike(wrapped, wrapped, pageable);
+    }
+
+    @Override
+    public Page<Book> searchBooksByTagAndKeyword(String tag, String keyword, Integer pageIndex, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+        String wrapped = "%" + keyword + "%";
+        Tag tagEntity = tagRepository.findByName(tag);
+        return bookRepository.findAllByAuthorLikeOrTitleLikeAndTagsContaining(wrapped, wrapped, tagEntity, pageable);
     }
 
     @Override
@@ -48,5 +61,10 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public List<Book> getTop10BestsellingBooks() {
         return bookRepository.findTop10ByOrderBySalesDesc();
+    }
+
+    @Override
+    public List<Tag> getAllTags() {
+        return tagRepository.findAll();
     }
 }
