@@ -1,6 +1,7 @@
 package com.reins.bookstore.controller;
 
 import com.reins.bookstore.constants.Messages;
+import com.reins.bookstore.entity.Address;
 import com.reins.bookstore.entity.User;
 import com.reins.bookstore.models.*;
 import com.reins.bookstore.service.UserService;
@@ -23,6 +24,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -40,6 +42,28 @@ public class UserController {
         Long userId = SessionUtils.getUserId();
         User user = userService.getUser(userId);
         return ResponseEntity.ok(UserDTO.fromEntity(user));
+    }
+
+    @GetMapping("/me/addresses")
+    @Operation(summary = "获取我的地址")
+    ResponseEntity<List<Address>> getMyAddresses() {
+        Long userId = SessionUtils.getUserId();
+        List<Address> addresses = userService.getUserAddresses(userId);
+        return ResponseEntity.ok(addresses);
+    }
+
+    @PostMapping("/me/addresses")
+    @Operation(summary = "添加常用地址")
+    ResponseEntity<ApiResponseBase> addMyAddress(@RequestBody AddAddressRequest request) {
+        Long userId = SessionUtils.getUserId();
+        return ResponseEntity.ok(userService.addUserAddresses(userId, request));
+    }
+
+    @DeleteMapping("/me/addresses/{id}")
+    @Operation(summary = "删除常用地址")
+    ResponseEntity<ApiResponseBase> deleteMyAddress(@PathVariable Long id) {
+        Long userId = SessionUtils.getUserId();
+        return ResponseEntity.ok(userService.deleteUserAddress(userId, id));
     }
 
     @GetMapping("/{id}")
